@@ -1,0 +1,14 @@
+class Topic < ApplicationRecord
+  default_scope -> { order(created_at: :desc)}
+
+  validates :user_id, presence: true
+  validates :description, presence: true
+  validates :image, presence: true
+
+  belongs_to :user
+  mount_uploader :image, ImageUploader
+  has_many :favorites
+  has_many :favorite_users, through: :favorites, source: 'user'
+  has_many :comments
+  has_many :favorites_count
+end
